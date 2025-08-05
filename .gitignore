@@ -1,0 +1,5 @@
+SDL3.dll
+
+build/
+.vscode/
+log.txt
