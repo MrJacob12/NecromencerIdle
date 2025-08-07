@@ -5,6 +5,8 @@
 #include <stdio.h>
 
 #include "logic.h"
+#include "storage.h"
+
 
 void draw_gold(SDL_Renderer* renderer, TTF_Font* font){
     char gold_Text[50];
@@ -52,6 +54,10 @@ int main(int argc, char* argv[]) {
 
     SDL_Renderer* renderer = SDL_CreateRenderer(window, "opengl");
 
+    GameState state = {0};
+    load_game_state(&state);
+    import_save(&state);
+
     int running = 1;
     SDL_Event event;
 
@@ -73,6 +79,9 @@ int main(int argc, char* argv[]) {
         SDL_RenderPresent(renderer);
         SDL_Delay(16); // ~60 FPS
     }
+
+    export_save(&state);
+    save_game_state(&state);
 
     SDL_DestroyRenderer(renderer);
     TTF_CloseFont(font);
