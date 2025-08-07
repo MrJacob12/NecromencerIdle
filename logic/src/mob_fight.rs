@@ -1,0 +1,35 @@
+use crate::state::{GOLD, MOB_HP, MOB_MAX_HP, DAMAGE};
+
+static mut WAITING_FOR_NEXT_MOB: bool = false;
+static mut NEXT_MOB_TIMER: u64 = 0;
+static mut NEXT_MOB_COOLDOWN: u64 = 5;
+
+pub fn fighting() {
+    unsafe {
+        if MOB_HP <= 0 && !WAITING_FOR_NEXT_MOB {
+                WAITING_FOR_NEXT_MOB = true;
+                GOLD += get_gold_per_kill(MOB_MAX_HP);
+            }
+            else {
+                MOB_HP = MOB_HP.saturating_sub(DAMAGE);
+            }
+            
+            if WAITING_FOR_NEXT_MOB {
+                NEXT_MOB_TIMER += 1;
+                if NEXT_MOB_TIMER >= NEXT_MOB_COOLDOWN {
+                    MOB_HP = 100;
+                    WAITING_FOR_NEXT_MOB = false;
+                    NEXT_MOB_TIMER = 0;
+                }
+            }
+    }
+}
+
+#[no_mangle]
+pub extern "C" fn get_mob_cooldown() -> u64 {
+    unsafe { NEXT_MOB_COOLDOWN - NEXT_MOB_TIMER }
+}
+
+fn get_gold_per_kill(_mob_hp: u64) -> u64 {
+    _mob_hp
+}

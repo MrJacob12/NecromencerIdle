@@ -3,6 +3,9 @@
 
 typedef struct {
     unsigned long long gold;
+    unsigned long long damage;
+    unsigned long long mob_hp;
+    unsigned long long mob_max_hp;
 } GameState;
 
 void save_game_state(GameState* state);

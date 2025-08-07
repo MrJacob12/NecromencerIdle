@@ -9,10 +9,8 @@ static void get_save_path(char* path_out, size_t max_len) {
     if (SUCCEEDED(SHGetFolderPathA(NULL, CSIDL_PERSONAL, NULL, 0, documents))) {
         snprintf(path_out, max_len, "%s\\NecromancerIdle", documents);
 
-        // Upewnij się, że folder istnieje
         CreateDirectoryA(path_out, NULL);
 
-        // Dodaj nazwę pliku
         strncat(path_out, "\\save.dat", max_len - strlen(path_out) - 1);
     } else {
         fprintf(stderr, "Could not locate Documents folder!\n");

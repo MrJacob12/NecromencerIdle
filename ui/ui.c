@@ -18,14 +18,19 @@ void ui_render(SDL_Renderer* renderer, TTF_Font* font) {
     float x, y;
     UIPosition pos = {
         .anchor = POS_CENTER,
-        .offset_x = 10,
+        .offset_x = 0,
         .offset_y = 10,
         .width = 128,
         .height = 128
     };
     get_ui_position(renderer, pos, &x, &y);
+    if(get_mob_hp() > 0) {
+        draw_texture(renderer, goblin, x, y, 128, 128);
+    }
 
-    draw_texture(renderer, goblin, x, y, 128, 128);
+    //* Mob HP
+    draw_mob_hp(renderer, font);
+    
 }
 
 void ui_cleanup() {

@@ -26,7 +26,7 @@ int main(int argc, char* argv[]) {
         return 1;
     }
 
-    TTF_Font* font = TTF_OpenFont("Fredoka.ttf", 24);
+    TTF_Font* font = TTF_OpenFont("Fredoka.ttf", 28);
     if (!font) {
         SDL_Log("Could not load font: %s", SDL_GetError());
         return 1;
