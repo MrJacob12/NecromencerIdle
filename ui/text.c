@@ -17,7 +17,7 @@ void draw_gold(SDL_Renderer* renderer, TTF_Font* font, unsigned long long gold) 
     float x, y;
     UIPosition pos = {
         .anchor = POS_TOP_LEFT,
-        .offset_x = 10,
+        .offset_x = 50,
         .offset_y = 10,
         .width = (float)surface->w,
         .height = (float)surface->h
@@ -54,7 +54,7 @@ void draw_mob_hp(SDL_Renderer* renderer, TTF_Font* font) {
     UIPosition pos = {
         .anchor = POS_CENTER,
         .offset_x = 0,
-        .offset_y = 50,
+        .offset_y = 90,
         .width = box_width,
         .height = (float)surface->h
     };
