@@ -2,7 +2,6 @@
 #include <stdio.h>
 #include <time.h>
 
-
 #include "storage.h"
 #include "logic.h"
 #include "ui/ui.h"

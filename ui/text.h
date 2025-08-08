@@ -2,7 +2,12 @@
 #define TEXT_H
 
 #include <stdio.h>
-#include <SDL_ttf.h>
+
+#ifdef __APPLE__
+    #include <SDL3_ttf/SDL_ttf.h>
+#else
+    #include <SDL_ttf.h>
+#endif
 
 #include "position.h"
 #include "../logic.h"

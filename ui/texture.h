@@ -1,7 +1,13 @@
 #ifndef TEXTURE_H
 #define TEXTURE_H
 
-#include <SDL_image.h>
+#ifdef __APPLE__
+    #include <SDL3_image/SDL_image.h>
+#else
+    #include <SDL_image.h>
+#endif
+
+
 
 #include "../logic.h"
 #include "position.h"

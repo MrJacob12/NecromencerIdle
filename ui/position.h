@@ -1,5 +1,6 @@
 #ifndef POSITION_H
 #define POSITION_H
+
 #include <SDL3/SDL.h>
 
 typedef enum {
