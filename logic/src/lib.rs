@@ -2,7 +2,7 @@ mod state;
 mod save;
 mod mob_fight;
 
-use state::{MOB_HP, MOB_MAX_HP, GOLD};
+use state::{MOB_HP, MOB_MAX_HP, GOLD, MANA};
 use save::{import_save, export_save, GameState};
 use mob_fight::fighting;
 

@@ -31,6 +31,36 @@ void draw_gold(SDL_Renderer* renderer, TTF_Font* font, unsigned long long gold) 
     SDL_DestroySurface(surface);
 }
 
+void draw_mana(SDL_Renderer* renderer, TTF_Font* font, unsigned long long mana) {
+    char mana_text[50];
+    format_number(mana, mana_text, sizeof(mana_text));
+
+    SDL_Color white = {255, 255, 255, 255};
+    SDL_Surface* surface = TTF_RenderText_Blended(font, mana_text, strlen(mana_text), white);
+    if (!surface) {
+        SDL_Log("Could not create surface: %s", SDL_GetError());
+        return;
+    }
+
+    SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
+
+    float x, y;
+    UIPosition pos = {
+        .anchor = POS_TOP_LEFT,
+        .offset_x = 150,
+        .offset_y = 13,
+        .width = (float)surface->w,
+        .height = (float)surface->h
+    };
+    get_ui_position(renderer, pos, &x, &y);
+    
+    SDL_FRect dstrect = {x, y, (float)surface->w, (float)surface->h};
+    SDL_RenderTexture(renderer, texture, NULL, &dstrect);
+
+    SDL_DestroyTexture(texture);
+    SDL_DestroySurface(surface);
+}
+
 void draw_mob_hp(SDL_Renderer* renderer, TTF_Font* font) {
     char mob_hp_text[50];
 

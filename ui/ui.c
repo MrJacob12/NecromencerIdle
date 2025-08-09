@@ -12,6 +12,9 @@ void ui_render(SDL_Renderer* renderer, TTF_Font* font) {
     draw_gold_coin(renderer);
     draw_gold(renderer, font, get_gold());
 
+    //* Mana
+    draw_mana(renderer, font, get_mana());
+
     //* Goblin Texture
     draw_mob(renderer);
 
