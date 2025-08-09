@@ -9,6 +9,7 @@ unsigned long long get_gold();
 unsigned long long get_mob_hp();
 unsigned long long get_mob_max_hp();
 unsigned long long get_mob_cooldown();
+unsigned long long get_mana();
 
 
 void tick(unsigned long long current_time);

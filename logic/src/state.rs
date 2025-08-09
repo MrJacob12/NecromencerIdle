@@ -1,4 +1,5 @@
 pub static mut GOLD: u64 = 0;
+pub static mut MANA: u64 = 0;
 
 pub static mut DAMAGE: u64 = 10;
 

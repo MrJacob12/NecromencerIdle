@@ -6,7 +6,7 @@ void draw_gold(SDL_Renderer* renderer, TTF_Font* font, unsigned long long gold) 
     format_number(gold, gold_text, sizeof(gold_text));
 
     SDL_Color white = {255, 255, 255, 255};
-    SDL_Surface* surface = TTF_RenderText_Solid(font, gold_text, strlen(gold_text), white);
+    SDL_Surface* surface = TTF_RenderText_Blended(font, gold_text, strlen(gold_text), white);
     if (!surface) {
         SDL_Log("Could not create surface: %s", SDL_GetError());
         return;
@@ -18,7 +18,7 @@ void draw_gold(SDL_Renderer* renderer, TTF_Font* font, unsigned long long gold) 
     UIPosition pos = {
         .anchor = POS_TOP_LEFT,
         .offset_x = 50,
-        .offset_y = 10,
+        .offset_y = 13,
         .width = (float)surface->w,
         .height = (float)surface->h
     };
@@ -41,7 +41,7 @@ void draw_mob_hp(SDL_Renderer* renderer, TTF_Font* font) {
     }
 
     SDL_Color color = {239, 82, 87, 255};
-    SDL_Surface* surface = TTF_RenderText_Solid(font, mob_hp_text, strlen(mob_hp_text), color);
+    SDL_Surface* surface = TTF_RenderText_Blended(font, mob_hp_text, 0, color);
     if (!surface) {
         SDL_Log("Could not create surface: %s", SDL_GetError());
         return;

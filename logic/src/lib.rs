@@ -35,6 +35,11 @@ pub extern "C" fn get_mob_max_hp() -> u64 {
     unsafe { MOB_MAX_HP }
 }
 
+#[no_mangle]
+pub extern "C" fn get_mana() -> u64 {
+    unsafe { MANA }
+}
+
 #[used]
 #[no_mangle]
 pub static _FORCE_LINK_IMPORT: extern "C" fn(*const GameState) = import_save;

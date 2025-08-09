@@ -25,11 +25,8 @@ int main(int argc, char* argv[]) {
         return 1;
     }
 
-    TTF_Font* font = TTF_OpenFont("Fredoka.ttf", 28);
-    if (!font) {
-        SDL_Log("Could not load font: %s", SDL_GetError());
-        return 1;
-    }
+    TTF_Font* font_medium = TTF_OpenFont("Ubuntu-Regular.ttf", 24);
+
 
     SDL_Renderer* renderer = SDL_CreateRenderer(window, "opengl");
 
@@ -53,7 +50,7 @@ int main(int argc, char* argv[]) {
         SDL_SetRenderDrawColor(renderer, 20, 20, 20, 255);
         SDL_RenderClear(renderer);
 
-        ui_render(renderer, font);
+        ui_render(renderer, font_medium);
 
         SDL_RenderPresent(renderer);
         SDL_Delay(16);
@@ -65,7 +62,7 @@ int main(int argc, char* argv[]) {
     ui_cleanup();
 
     SDL_DestroyRenderer(renderer);
-    TTF_CloseFont(font);
+    TTF_CloseFont(font_medium);
     TTF_Quit();
     SDL_DestroyWindow(window);
     SDL_Quit();
