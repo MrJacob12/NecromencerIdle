@@ -1,6 +1,7 @@
 use crate::state::{GOLD, DAMAGE};
 
 pub static mut UPGRADE_DAMAGE: u16 = 0;
+static mut UPGRADE_DAMAGE_MAX_LEVEL: u16 = 150;
 
 #[no_mangle]
 pub extern "C" fn upgrade_damage() {
@@ -15,17 +16,26 @@ pub extern "C" fn upgrade_damage() {
 }
 
 fn calculate_damage_upgrade_cost(upgrade: u16) -> u64 {
-    if upgrade < 150 {
-        100 + (upgrade as u64 * 125)
-    } else {
-        0
+    unsafe {
+        if upgrade < UPGRADE_DAMAGE_MAX_LEVEL {
+            100 + (upgrade as u64 * 125)
+        } else {
+            0
+        }
     }
 }
 
 #[no_mangle]
-pub extern "C" fn get_upgrade_damage() -> u16 {
+pub extern "C" fn get_upgrade_damage_level()-> u16 {
     unsafe {
         UPGRADE_DAMAGE
+    }
+}
+
+#[no_mangle]
+pub extern "C" fn get_upgrade_damage_max_level() -> u16 {
+    unsafe {
+        UPGRADE_DAMAGE_MAX_LEVEL
     }
 }
 

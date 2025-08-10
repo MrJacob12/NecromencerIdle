@@ -46,7 +46,7 @@ void ui_init(TTF_Font* font) {
     );
 
     buy_damage_upgrade_bnt = create_button(
-        50, 150, 200, 40,
+        200, 145, 200, 40,
         "Buy",
         font,
         (SDL_Color){60,200,60,255},
@@ -78,7 +78,8 @@ void ui_render(SDL_Renderer* renderer, TTF_Font* font) {
         draw_gold(renderer, font, get_gold());
 
         // Upgrades 
-        draw_upgrade_damage(renderer, font);
+        draw_upgrade_damage_level(renderer, font);
+        draw_upgrade_damage_cost(renderer, font);
         if (get_upgrade_damage_cost() >= get_gold()) {
             buy_damage_upgrade_bnt.bg_color = (SDL_Color){200,60,60,255}; 
             buy_damage_upgrade_bnt.hover_color = (SDL_Color){250,100,100,255};

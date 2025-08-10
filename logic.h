@@ -12,7 +12,8 @@ unsigned long long get_mob_cooldown();
 unsigned long long get_mana();
 unsigned long long get_damage();
 unsigned long long get_upgrade_damage_cost();
-unsigned short get_upgrade_damage();
+unsigned short get_upgrade_damage_level();
+unsigned short get_upgrade_damage_max_level();
 
 
 void tick(unsigned long long current_time);

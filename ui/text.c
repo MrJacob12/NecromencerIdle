@@ -100,13 +100,10 @@ void draw_mob_hp(SDL_Renderer* renderer, TTF_Font* font) {
     SDL_DestroySurface(surface);
 }
 
-void draw_upgrade_damage(SDL_Renderer* renderer, TTF_Font* font) {
+void draw_upgrade_damage_level(SDL_Renderer* renderer, TTF_Font* font) {
     char damage_text[50];
-    char cost_text[50];
 
-    format_number(get_upgrade_damage_cost(), cost_text, sizeof(cost_text));
-
-    sprintf(damage_text, "Damage Upgrade: +5 Level: %hu Cost: %s", get_upgrade_damage(), cost_text);
+    sprintf(damage_text, "Damage Upgrade: +5 per Level: %hu/%hu", get_upgrade_damage_level(), get_upgrade_damage_max_level());
     SDL_Color color = {255, 255, 255, 255};
     SDL_Surface* surface = TTF_RenderText_Blended(font, damage_text, 0, color);
     if (!surface) {
@@ -130,6 +127,39 @@ void draw_upgrade_damage(SDL_Renderer* renderer, TTF_Font* font) {
     SDL_DestroyTexture(texture);
     SDL_DestroySurface(surface);
 
+}
+
+void draw_upgrade_damage_cost(SDL_Renderer* renderer, TTF_Font* font) {
+    char cost_text[50];
+    char _cost_text[50];
+
+    format_number(get_upgrade_damage_cost(), _cost_text, sizeof(_cost_text));
+    sprintf(cost_text, "Cost: %s", _cost_text);
+
+    SDL_Color color = {255, 255, 255, 255};
+    SDL_Surface* surface = TTF_RenderText_Blended(font, cost_text, 0, color);
+    if (!surface) {
+        SDL_Log("Could not create surface: %s", SDL_GetError());
+        return;
+    }
+
+    SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
+    
+    float x, y;
+    UIPosition pos = {
+        .anchor = POS_TOP_LEFT,
+        .offset_x = 50,
+        .offset_y = 150,
+        .width = (float)surface->w,
+        .height = (float)surface->h
+    };
+    get_ui_position(renderer, pos, &x, &y);
+    
+    SDL_FRect dstrect = {x, y, (float)surface->w, (float)surface->h};
+    SDL_RenderTexture(renderer, texture, NULL, &dstrect);
+
+    SDL_DestroyTexture(texture);
+    SDL_DestroySurface(surface);
 }
 
 void draw_text(SDL_Renderer* renderer, TTF_Font* font, const char* text, UIPosition pos, SDL_Color color) {
