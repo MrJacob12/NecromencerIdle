@@ -5,6 +5,8 @@ pub static mut DAMAGE: u64 = 10;
 
 pub static mut MOB_HP: u64 = 100;
 pub static mut MOB_MAX_HP: u64 = 100;
+pub static mut MOB_LEVEL: u64 = 1;
+pub static mut MOB_KILL_COUNT: u64 = 0;
 
 pub static mut SKELETONS: u64 = 0;
 

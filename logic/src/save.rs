@@ -1,20 +1,26 @@
-use crate::state::{GOLD, DAMAGE, MOB_HP, MOB_MAX_HP, MANA, INVENTORY, INVENTORY_AMOUNTS, SKELETONS};
+use crate::state::*;
+use crate::upgrades::{UPGRADE_DAMAGE};
 
 #[repr(C)]
 pub struct GameState {
     pub gold: u64,
     pub mana: u64,
     pub damage: u64,
+
     pub mob_hp: u64,
     pub mob_max_hp: u64,
+    pub mob_level: u64,
+    pub mob_kill_count: u64,
+
+
     pub skeletons: u64,
+
+    pub upgrade_damage: u16,
+
+    pub inventory: [u16; 10],
+    pub inventory_amounts: [u64; 10],
 }
 
-#[repr(C)]
-pub struct Inventory {
-    pub items: [u16; 12],
-    pub amounts: [u64; 12],
-}
 
 #[no_mangle]
 pub extern "C" fn import_save(state: *const GameState) {
@@ -23,8 +29,13 @@ pub extern "C" fn import_save(state: *const GameState) {
             GOLD = state.gold;
             MANA = state.mana;
             DAMAGE = if state.damage != 0 { state.damage } else { 10 };
+
             MOB_HP = if state.mob_hp != 0 { state.mob_hp } else { 100 };
             MOB_MAX_HP = if state.mob_max_hp != 0 { state.mob_max_hp } else { 100 };
+            MOB_LEVEL = if state.mob_level != 0 { state.mob_level } else { 1 };
+            MOB_KILL_COUNT = state.mob_kill_count;
+
+            UPGRADE_DAMAGE = state.upgrade_damage;
 
             SKELETONS = state.skeletons;
 
@@ -32,7 +43,7 @@ pub extern "C" fn import_save(state: *const GameState) {
                 INVENTORY = [0; 10];
                 INVENTORY_AMOUNTS = [0; 10];
             } else {
-                for i in 0..12 {
+                for i in 0..10 {
                     INVENTORY[i] = state.inventory[i];
                     INVENTORY_AMOUNTS[i] = state.inventory_amounts[i];
                 }
@@ -48,11 +59,16 @@ pub extern "C" fn export_save(state: *mut GameState) {
             state.gold = GOLD;
             state.mana = MANA;
             state.damage = DAMAGE;
+
             state.mob_hp = MOB_HP;
             state.mob_max_hp = MOB_MAX_HP;
-            state.skeletons = SKELETONS;
+            state.mob_level = MOB_LEVEL;
+            state.mob_kill_count = MOB_KILL_COUNT;
 
-            for i in 0..12 {
+            state.skeletons = SKELETONS;
+            state.upgrade_damage = UPGRADE_DAMAGE;
+
+            for i in 0..10 {
                 state.inventory[i] = INVENTORY[i];
                 state.inventory_amounts[i] = INVENTORY_AMOUNTS[i];
             }

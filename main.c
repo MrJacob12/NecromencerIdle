@@ -42,6 +42,7 @@ int main(int argc, char* argv[]) {
             if (event.type == SDL_EVENT_QUIT) {
                 running = 0;
             }
+            ui_handle_event(&event);
         }
 
         time_t current_time = time(NULL);

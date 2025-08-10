@@ -1,8 +1,9 @@
 mod state;
 mod save;
 mod mob_fight;
+mod upgrades;
 
-use state::{MOB_HP, MOB_MAX_HP, GOLD, MANA};
+use state::{MOB_HP, MOB_MAX_HP, GOLD, MANA, DAMAGE};
 use save::{import_save, export_save, GameState};
 use mob_fight::fighting;
 
@@ -23,6 +24,11 @@ pub extern "C" fn tick(current_time: u64) {
 #[no_mangle]
 pub extern "C" fn get_gold() -> u64 {
     unsafe { GOLD }
+}
+
+#[no_mangle]
+pub extern "C" fn get_damage() -> u64 {
+    unsafe { DAMAGE }
 }
 
 #[no_mangle]

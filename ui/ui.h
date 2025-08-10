@@ -8,6 +8,7 @@
 #include "text.h"
 
 void ui_render(SDL_Renderer* renderer, TTF_Font* font);
+void ui_handle_event(SDL_Event* e);
 void ui_cleanup();
 
 
