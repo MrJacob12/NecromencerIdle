@@ -7,6 +7,7 @@ typedef struct {
     unsigned long long damage;
     unsigned long long mob_hp;
     unsigned long long mob_max_hp;
+    unsigned long long mob_level;
 
     unsigned long long skeletons;
 

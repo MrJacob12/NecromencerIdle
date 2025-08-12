@@ -11,9 +11,6 @@ pub fn fighting() {
                 GOLD += get_gold_per_kill(MOB_MAX_HP);
 
                 MOB_KILL_COUNT += 1;
-                if MOB_KILL_COUNT % 10 == 0 {
-                    MOB_LEVEL += 1;
-                }
             }
             else {
                 MOB_HP = MOB_HP.saturating_sub(DAMAGE);
@@ -35,6 +32,11 @@ pub fn fighting() {
 #[no_mangle]
 pub extern "C" fn get_mob_cooldown() -> u64 {
     unsafe { NEXT_MOB_COOLDOWN - NEXT_MOB_TIMER }
+}
+
+#[no_mangle]
+pub extern "C" fn get_mob_level() -> u64 {
+    unsafe { MOB_LEVEL }
 }
 
 fn calculate_mob_hp() -> u64 {

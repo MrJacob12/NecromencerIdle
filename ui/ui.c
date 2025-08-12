@@ -9,6 +9,7 @@
 static Button upgrades_btn;
 static Button upgrades_close_btn;
 static Button buy_damage_upgrade_bnt;
+static Button buy_mob_level_upgrade_bnt;
 
 static int ui_initialized = 0;
 
@@ -22,6 +23,10 @@ void close_upgrades(void* userdata) {
 
 void buy_damage_upgrade_callback(void* userdata) {
     upgrade_damage();
+}
+
+void buy_mob_level_upgrade_callback(void* userdata) {
+    upgrade_mob_level();
 }
 
 void ui_init(TTF_Font* font) {
@@ -55,6 +60,15 @@ void ui_init(TTF_Font* font) {
         buy_damage_upgrade_callback, NULL
     );
 
+    buy_mob_level_upgrade_bnt = create_button(
+        200, 250, 200, 40,
+        "Buy",
+        font,
+        (SDL_Color){60,200,60,255},
+        (SDL_Color){100,250,100,255},
+        (SDL_Color){255,255,255,255},
+        buy_mob_level_upgrade_callback, NULL
+    );
 
     ui_initialized = 1;
 }
@@ -70,6 +84,7 @@ void ui_render(SDL_Renderer* renderer, TTF_Font* font) {
 
         draw_mob(renderer);
         draw_mob_hp(renderer, font);
+        draw_mob_level(renderer, font);
 
         draw_button(renderer, &upgrades_btn);
     }
@@ -78,6 +93,7 @@ void ui_render(SDL_Renderer* renderer, TTF_Font* font) {
         draw_gold(renderer, font, get_gold());
 
         // Upgrades 
+        //* Damage Upgrade
         draw_upgrade_damage_level(renderer, font);
         draw_upgrade_damage_cost(renderer, font);
         if (get_upgrade_damage_cost() >= get_gold()) {
@@ -95,6 +111,25 @@ void ui_render(SDL_Renderer* renderer, TTF_Font* font) {
         }
         draw_button(renderer, &buy_damage_upgrade_bnt);
 
+        //* Mob Level Upgrade
+        draw_upgrade_mob_level_level(renderer, font);
+        draw_upgrade_mob_level_cost(renderer, font);
+        if (get_upgrade_mob_level_cost() >= get_gold()) {
+            buy_mob_level_upgrade_bnt.bg_color = (SDL_Color){200,60,60,255}; 
+            buy_mob_level_upgrade_bnt.hover_color = (SDL_Color){250,100,100,255};
+            strncpy(buy_mob_level_upgrade_bnt.label, "Not enough gold", sizeof(buy_mob_level_upgrade_bnt.label)-1);
+        }
+        else if (get_upgrade_mob_level_cost() == 0) {
+            strncpy(buy_mob_level_upgrade_bnt.label, "Maxed", sizeof(buy_mob_level_upgrade_bnt.label)-1);
+        }
+        else {
+            buy_mob_level_upgrade_bnt.bg_color = (SDL_Color){60,200,60,255};
+            buy_mob_level_upgrade_bnt.hover_color = (SDL_Color){100,250,100,255};
+            snprintf(buy_mob_level_upgrade_bnt.label, sizeof(buy_mob_level_upgrade_bnt.label), "Buy");
+        }
+        draw_button(renderer, &buy_mob_level_upgrade_bnt);
+        
+        //* Close button
         draw_button(renderer, &upgrades_close_btn);
     }
 }
@@ -106,6 +141,7 @@ void ui_handle_event(SDL_Event* e) {
     else if (current_scene == SCENE_UPGRADES) {
         handle_button_event(&upgrades_close_btn, e);
         handle_button_event(&buy_damage_upgrade_bnt, e);
+        handle_button_event(&buy_mob_level_upgrade_bnt, e);
     }
 }
 
