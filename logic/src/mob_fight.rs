@@ -41,7 +41,7 @@ pub extern "C" fn get_mob_level() -> u64 {
 
 fn calculate_mob_hp() -> u64 {
     unsafe {
-        100 + (MOB_LEVEL * 10) + (MOB_KILL_COUNT * 5)
+        100 + (MOB_LEVEL * 225)
     }
 }
 
