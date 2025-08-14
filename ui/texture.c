@@ -25,7 +25,7 @@ void draw_texture(SDL_Renderer* renderer, SDL_Texture* texture, float x, float y
     SDL_RenderTexture(renderer, texture, NULL, &dst);
 }
 
-void draw_gold_coin(SDL_Renderer* renderer) {
+void draw_gold_icon(SDL_Renderer* renderer) {
     static SDL_Texture* gold_icon = NULL;
     if (!gold_icon) {
         gold_icon = load_texture(renderer, "assets/gold_icon.png");
@@ -60,4 +60,22 @@ void draw_mob(SDL_Renderer* renderer) {
     if(get_mob_hp() > 0) {
         draw_texture(renderer, goblin, x, y, 128, 128);
     }
+}
+
+void draw_mana_icon(SDL_Renderer* renderer) {
+    static SDL_Texture* mana_icon = NULL;
+    if (!mana_icon) {
+        mana_icon = load_texture(renderer, "assets/mana_icon.png");
+    }
+    
+    float x, y;
+    UIPosition pos = {
+        .anchor = POS_TOP_LEFT,
+        .offset_x = 130,
+        .offset_y = 12,
+        .width = 32,
+        .height = 32
+    };
+    get_ui_position(renderer, pos, &x, &y);
+    draw_texture(renderer, mana_icon, x, y, 32, 32);
 }

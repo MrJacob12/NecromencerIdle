@@ -47,7 +47,7 @@ void draw_mana(SDL_Renderer* renderer, TTF_Font* font, unsigned long long mana) 
     float x, y;
     UIPosition pos = {
         .anchor = POS_TOP_LEFT,
-        .offset_x = 150,
+        .offset_x = 170,
         .offset_y = 13,
         .width = (float)surface->w,
         .height = (float)surface->h

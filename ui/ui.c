@@ -77,10 +77,11 @@ void ui_render(SDL_Renderer* renderer, TTF_Font* font) {
     if (!ui_initialized) ui_init(font);
 
     if (current_scene == SCENE_GAME) {
-        draw_gold_coin(renderer);
         draw_gold(renderer, font, get_gold());
+        draw_gold_icon(renderer);
 
         draw_mana(renderer, font, get_mana());
+        draw_mana_icon(renderer);
 
         draw_mob(renderer);
         draw_mob_hp(renderer, font);
@@ -89,8 +90,8 @@ void ui_render(SDL_Renderer* renderer, TTF_Font* font) {
         draw_button(renderer, &upgrades_btn);
     }
     else if (current_scene == SCENE_UPGRADES) {
-        draw_gold_coin(renderer);
         draw_gold(renderer, font, get_gold());
+        draw_gold_icon(renderer);
 
         // Upgrades 
         //* Damage Upgrade
