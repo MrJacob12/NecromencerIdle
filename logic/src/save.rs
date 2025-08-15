@@ -1,5 +1,5 @@
 use crate::state::*;
-use crate::upgrades::{UPGRADE_DAMAGE};
+use crate::upgrades::{UPGRADE_DAMAGE, UPGRADE_MOB_LEVEL};
 
 #[repr(C)]
 pub struct GameState {
@@ -16,6 +16,7 @@ pub struct GameState {
     pub skeletons: u64,
 
     pub upgrade_damage: u16,
+    pub upgrade_mob_level: u16,
 
     pub inventory: [u16; 10],
     pub inventory_amounts: [u64; 10],
@@ -36,6 +37,7 @@ pub extern "C" fn import_save(state: *const GameState) {
             MOB_KILL_COUNT = state.mob_kill_count;
 
             UPGRADE_DAMAGE = state.upgrade_damage;
+            UPGRADE_MOB_LEVEL = state.upgrade_mob_level;
 
             SKELETONS = state.skeletons;
 
@@ -67,6 +69,7 @@ pub extern "C" fn export_save(state: *mut GameState) {
 
             state.skeletons = SKELETONS;
             state.upgrade_damage = UPGRADE_DAMAGE;
+            state.upgrade_mob_level = UPGRADE_MOB_LEVEL;
 
             for i in 0..10 {
                 state.inventory[i] = INVENTORY[i];

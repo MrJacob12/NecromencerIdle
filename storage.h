@@ -12,6 +12,7 @@ typedef struct {
     unsigned long long skeletons;
 
     unsigned short upgrade_damage;
+    unsigned short upgrade_mob_level;
 
     unsigned short inventory[10];
     unsigned long long inventory_amounts[10];

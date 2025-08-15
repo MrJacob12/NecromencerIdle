@@ -2,11 +2,12 @@
 #include "../logic.h"
 #include "position.h"
 #include "button.h"
+#include "image_button.h"
 #include "scene.h"
 #include <stdio.h>
 #include <string.h>
 
-static Button upgrades_btn;
+static ImageButton upgrades_btn;
 static Button upgrades_close_btn;
 static Button buy_damage_upgrade_bnt;
 static Button buy_mob_level_upgrade_bnt;
@@ -29,14 +30,18 @@ void buy_mob_level_upgrade_callback(void* userdata) {
     upgrade_mob_level();
 }
 
-void ui_init(TTF_Font* font) {
-    upgrades_btn = create_button(
-        650, 20, 120, 40,
-        "Upgrade",
-        font,
-        (SDL_Color){60,60,200,255},
-        (SDL_Color){100,100,250,255},
-        (SDL_Color){255,255,255,255},
+void ui_init(TTF_Font* font, SDL_Renderer* renderer) {
+    upgrades_btn = create_image_button(
+       renderer,
+        "assets/upgrades_button_normal.png",
+        "assets/upgrades_button_normal.png",
+        (UIPosition){
+            .anchor = POS_TOP_RIGHT,
+            .offset_x = -10,
+            .offset_y = 10,
+            .width = 64,
+            .height = 64
+        },
         open_upgrades, NULL
     );
 
@@ -74,7 +79,7 @@ void ui_init(TTF_Font* font) {
 }
 
 void ui_render(SDL_Renderer* renderer, TTF_Font* font) {
-    if (!ui_initialized) ui_init(font);
+    if (!ui_initialized) ui_init(font, renderer);
 
     if (current_scene == SCENE_GAME) {
         draw_gold(renderer, font, get_gold());
@@ -87,13 +92,13 @@ void ui_render(SDL_Renderer* renderer, TTF_Font* font) {
         draw_mob_hp(renderer, font);
         draw_mob_level(renderer, font);
 
-        draw_button(renderer, &upgrades_btn);
+        draw_image_button(renderer, &upgrades_btn);
     }
     else if (current_scene == SCENE_UPGRADES) {
         draw_gold(renderer, font, get_gold());
         draw_gold_icon(renderer);
 
-        // Upgrades 
+        //! Upgrades 
         //* Damage Upgrade
         draw_upgrade_damage_level(renderer, font);
         draw_upgrade_damage_cost(renderer, font);
@@ -137,7 +142,7 @@ void ui_render(SDL_Renderer* renderer, TTF_Font* font) {
 
 void ui_handle_event(SDL_Event* e) {
     if (current_scene == SCENE_GAME) {
-        handle_button_event(&upgrades_btn, e);
+        handle_image_button_event(&upgrades_btn, e);
     }
     else if (current_scene == SCENE_UPGRADES) {
         handle_button_event(&upgrades_close_btn, e);

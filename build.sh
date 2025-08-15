@@ -7,7 +7,7 @@ cargo build --release --target aarch64-apple-darwin
 cd ..
 
 clang main.c storage.c \
-    ui/ui.c ui/texture.c ui/text.c ui/position.c ui/button.c ui/scene.c \
+    ui/ui.c ui/texture.c ui/text.c ui/position.c ui/button.c ui/scene.c ui/image_button.c \
     utils/number_format.c \
     -I/opt/homebrew/opt/sdl3/include \
     -I/opt/homebrew/opt/sdl3_ttf/include \

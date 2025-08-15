@@ -15,7 +15,7 @@ set LIBPATH=D:\lib\
 
 REM Compile code
 gcc main.c storage.c ^
-    ui/ui.c ui/texture.c ui/text.c ui/position.c ui/button.c ui/scene.c ^
+    ui/ui.c ui/texture.c ui/text.c ui/position.c ui/button.c ui/scene.c ui/image_button.c ^
     utils/number_format.c ^
     -I%LIBPATH%SDL3\include -I%LIBPATH%SDL3_ttf\include ^
     -L%LIBPATH%SDL3\lib -L%LIBPATH%SDL3_ttf\lib ^
