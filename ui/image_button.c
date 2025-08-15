@@ -19,7 +19,7 @@ ImageButton create_image_button(SDL_Renderer* renderer,
     
     btn.current_scale = 1.0f;
     btn.target_scale = 1.0f;
-    btn.scale_speed = 4.0f;
+    btn.scale_speed = 18.0f;
     btn.last_update_time = SDL_GetTicks();
 
     btn.normal_tex = load_texture(renderer, normal_path);

@@ -12,6 +12,7 @@ unsigned long long get_mob_cooldown();
 unsigned long long get_mana();
 unsigned long long get_damage();
 unsigned long long get_mob_level();
+unsigned long long get_mob_kill_count();
 
 unsigned long long get_upgrade_damage_cost();
 unsigned short get_upgrade_damage_level();

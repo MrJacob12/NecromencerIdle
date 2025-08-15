@@ -47,6 +47,12 @@ fn calculate_mob_hp() -> u64 {
 
 fn get_gold_per_kill(_mob_hp: u64) -> u64 {
     unsafe {
-        100 + (MOB_LEVEL * 5)
+        let base_gold = 125 + (MOB_LEVEL * 5);
+        base_gold + MOB_KILL_COUNT + MOB_MAX_HP / 100
     }
+}
+
+#[no_mangle]
+pub extern "C" fn get_mob_kill_count() -> u64 {
+    unsafe { MOB_KILL_COUNT }
 }

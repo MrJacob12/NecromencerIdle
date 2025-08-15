@@ -130,6 +130,37 @@ void draw_mob_level(SDL_Renderer* renderer, TTF_Font* font) {
     SDL_DestroyTexture(texture);
     SDL_DestroySurface(surface);
 }
+
+void draw_mob_kill_count(SDL_Renderer* renderer, TTF_Font* font, unsigned long long mob_kill_count) {
+    char mob_kill_text[50];
+    format_number(mob_kill_count, mob_kill_text, sizeof(mob_kill_text));
+
+    SDL_Color color = {255, 255, 255, 255};
+    SDL_Surface* surface = TTF_RenderText_Blended(font, mob_kill_text, 0, color);
+    if (!surface) {
+        SDL_Log("Could not create surface: %s", SDL_GetError());
+        return;
+    }
+
+    SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
+
+    float x, y;
+    UIPosition pos = {
+        .anchor = POS_BOTTOM_LEFT,
+        .offset_x = 50,
+        .offset_y = 50,
+        .width = (float)surface->w,
+        .height = (float)surface->h
+    };
+    get_ui_position(renderer, pos, &x, &y);
+    
+    SDL_FRect dstrect = {x, y, (float)surface->w, (float)surface->h};
+    SDL_RenderTexture(renderer, texture, NULL, &dstrect);
+
+    SDL_DestroyTexture(texture);
+    SDL_DestroySurface(surface);
+}
+
 #pragma endregion
 
 #pragma region Upgrade UI
@@ -181,7 +212,7 @@ void draw_upgrade_damage_cost(SDL_Renderer* renderer, TTF_Font* font) {
     float x, y;
     UIPosition pos = {
         .anchor = POS_TOP_LEFT,
-        .offset_x = 50,
+        .offset_x = 90,
         .offset_y = 150,
         .width = (float)surface->w,
         .height = (float)surface->h
@@ -244,7 +275,7 @@ void draw_upgrade_mob_level_cost(SDL_Renderer* renderer, TTF_Font* font) {
     float x, y;
     UIPosition pos = {
         .anchor = POS_TOP_LEFT,
-        .offset_x = 50,
+        .offset_x = 90,
         .offset_y = 250,
         .width = (float)surface->w,
         .height = (float)surface->h

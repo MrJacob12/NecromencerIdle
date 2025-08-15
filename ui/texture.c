@@ -25,21 +25,14 @@ void draw_texture(SDL_Renderer* renderer, SDL_Texture* texture, float x, float y
     SDL_RenderTexture(renderer, texture, NULL, &dst);
 }
 
-void draw_gold_icon(SDL_Renderer* renderer) {
+void draw_gold_icon(SDL_Renderer* renderer, UIPosition pos) {
     static SDL_Texture* gold_icon = NULL;
     if (!gold_icon) {
         gold_icon = load_texture(renderer, "assets/gold_icon.png");
     }
     float x, y;
-    UIPosition pos = {
-        .anchor = POS_TOP_LEFT,
-        .offset_x = 10,
-        .offset_y = 12,
-        .width = 32,
-        .height = 32
-    };
     get_ui_position(renderer, pos, &x, &y);
-    draw_texture(renderer, gold_icon, x, y, 32, 32);
+    draw_texture(renderer, gold_icon, x, y, pos.width, pos.height);
 }
 
 void draw_mob(SDL_Renderer* renderer) {
@@ -58,7 +51,7 @@ void draw_mob(SDL_Renderer* renderer) {
     };
     get_ui_position(renderer, pos, &x, &y);
     if(get_mob_hp() > 0) {
-        draw_texture(renderer, goblin, x, y, 128, 128);
+        draw_texture(renderer, goblin, x, y, pos.width, pos.height);
     }
 }
 
@@ -77,5 +70,25 @@ void draw_mana_icon(SDL_Renderer* renderer) {
         .height = 32
     };
     get_ui_position(renderer, pos, &x, &y);
-    draw_texture(renderer, mana_icon, x, y, 32, 32);
+    draw_texture(renderer, mana_icon, x, y, pos.width, pos.height);
+}
+
+void draw_mob_kill_icon(SDL_Renderer* renderer) {
+    static SDL_Texture* skull_icon = NULL;
+
+    if (!skull_icon) {
+        skull_icon = load_texture(renderer, "assets/skull_icon.png");
+    }
+
+    float x, y;
+    UIPosition pos = {
+        .anchor = POS_BOTTOM_LEFT,
+        .offset_x = 10,
+        .offset_y = 46,
+        .width = 32,
+        .height = 32
+    };
+
+    get_ui_position(renderer, pos, &x, &y);
+    draw_texture(renderer, skull_icon, x, y, pos.width, pos.height);
 }
